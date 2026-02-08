@@ -10,6 +10,9 @@ final class DemoStore {
     var sessionEpoch: Int = 0
     var currentDisplayURL: String = ""
 
+    private let saveSubject = PassthroughSubject<Void, Never>()
+    private var cancellables = Set<AnyCancellable>()
+
     var activeDemo: Demo? {
         get {
             guard let id = activeDemoID else { return nil }
@@ -22,7 +25,41 @@ final class DemoStore {
     }
 
     init() {
-        loadSampleData()
+        setupAutoSave()
+        loadFromDisk()
+    }
+
+    private func setupAutoSave() {
+        saveSubject
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .sink { [weak self] in self?.saveToDisk() }
+            .store(in: &cancellables)
+    }
+
+    private func loadFromDisk() {
+        if let doc = PersistenceService.load(), !doc.demos.isEmpty {
+            demos = doc.demos
+            activeDemoID = doc.activeDemoID
+            isNotesPanelVisible = doc.isNotesPanelVisible
+            if let active = activeDemo {
+                currentDisplayURL = active.url
+            }
+        } else {
+            loadSampleData()
+        }
+    }
+
+    private func saveToDisk() {
+        let doc = DemoBrowserDocument(
+            demos: demos,
+            activeDemoID: activeDemoID,
+            isNotesPanelVisible: isNotesPanelVisible
+        )
+        PersistenceService.save(doc)
+    }
+
+    private func scheduleAutoSave() {
+        saveSubject.send()
     }
 
     private func loadSampleData() {
@@ -32,12 +69,14 @@ final class DemoStore {
         demos = [sample1, sample2, sample3]
         activeDemoID = sample1.id
         currentDisplayURL = sample1.url
+        scheduleAutoSave()
     }
 
     func selectDemo(_ demo: Demo) {
         activeDemoID = demo.id
         currentDisplayURL = demo.url
         sessionEpoch += 1
+        scheduleAutoSave()
     }
 
     func addDemo(name: String = "New Demo", url: String = "https://www.apple.com") {
@@ -63,6 +102,7 @@ final class DemoStore {
             currentDisplayURL = ""
             sessionEpoch += 1
         }
+        scheduleAutoSave()
     }
 
     func refreshSession() {
@@ -88,10 +128,12 @@ final class DemoStore {
     func updateNotes(_ notes: String) {
         guard let id = activeDemoID, let idx = demos.firstIndex(where: { $0.id == id }) else { return }
         demos[idx].notes = notes
+        scheduleAutoSave()
     }
 
     func toggleNotesPanel() {
         isNotesPanelVisible.toggle()
+        scheduleAutoSave()
     }
 
     func toggleChrome() {
