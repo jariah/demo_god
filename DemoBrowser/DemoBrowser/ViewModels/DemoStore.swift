@@ -9,6 +9,7 @@ final class DemoStore {
     var isChromeVisible: Bool = true
     var sessionEpoch: Int = 0
     var currentDisplayURL: String = ""
+    var editingDemoID: UUID?
 
     private let saveSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -83,6 +84,7 @@ final class DemoStore {
         let demo = Demo(name: name, url: url)
         demos.append(demo)
         selectDemo(demo)
+        editingDemoID = demo.id
     }
 
     func duplicateActiveDemo() {
@@ -123,6 +125,22 @@ final class DemoStore {
         }
         currentDisplayURL = normalized
         sessionEpoch += 1
+    }
+
+    func updateDemoName(_ id: UUID, name: String) {
+        guard let idx = demos.firstIndex(where: { $0.id == id }) else { return }
+        demos[idx].name = name
+        scheduleAutoSave()
+    }
+
+    func updateDemoURL(_ id: UUID, url: String) {
+        guard let idx = demos.firstIndex(where: { $0.id == id }) else { return }
+        demos[idx].url = url
+        if id == activeDemoID {
+            currentDisplayURL = url
+            sessionEpoch += 1
+        }
+        scheduleAutoSave()
     }
 
     func updateNotes(_ notes: String) {
