@@ -138,7 +138,6 @@ final class DemoStore {
         demos[idx].url = url
         if id == activeDemoID {
             currentDisplayURL = url
-            sessionEpoch += 1
         }
         scheduleAutoSave()
     }
