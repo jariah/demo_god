@@ -38,6 +38,14 @@ struct DemoBrowserApp: App {
                     store.duplicateActiveDemo()
                 }
                 .keyboardShortcut("d", modifiers: .command)
+
+                Divider()
+
+                Button("Delete Demo") {
+                    store.showDeleteConfirmation = true
+                }
+                .keyboardShortcut("w", modifiers: .command)
+                .disabled(store.activeDemo == nil)
             }
         }
     }

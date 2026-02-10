@@ -22,5 +22,18 @@ struct ContentView: View {
             }
         }
         .frame(minWidth: 800, minHeight: 500)
+        .alert("Delete Demo", isPresented: Binding(
+            get: { store.showDeleteConfirmation },
+            set: { store.showDeleteConfirmation = $0 }
+        )) {
+            Button("Cancel", role: .cancel) {}
+            Button("Delete", role: .destructive) {
+                store.deleteActiveDemo()
+            }
+        } message: {
+            if let name = store.activeDemo?.name {
+                Text("Are you sure you want to delete \"\(name)\"?")
+            }
+        }
     }
 }

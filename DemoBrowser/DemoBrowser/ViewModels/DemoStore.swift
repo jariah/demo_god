@@ -10,6 +10,7 @@ final class DemoStore {
     var sessionEpoch: Int = 0
     var currentDisplayURL: String = ""
     var editingDemoID: UUID?
+    var showDeleteConfirmation: Bool = false
 
     private let saveSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -150,6 +151,11 @@ final class DemoStore {
 
     func toggleNotesPanel() {
         isNotesPanelVisible.toggle()
+        scheduleAutoSave()
+    }
+
+    func moveDemos(from source: IndexSet, to destination: Int) {
+        demos.move(fromOffsets: source, toOffset: destination)
         scheduleAutoSave()
     }
 

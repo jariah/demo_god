@@ -38,6 +38,9 @@ struct DemoQueueView: View {
                     ForEach(store.demos) { demo in
                         DemoRowView(demo: demo, isQueueEditing: true)
                     }
+                    .onMove { source, destination in
+                        store.moveDemos(from: source, to: destination)
+                    }
                 }
                 .listStyle(.sidebar)
             } else {
@@ -52,6 +55,9 @@ struct DemoQueueView: View {
                     ForEach(store.demos) { demo in
                         DemoRowView(demo: demo, isQueueEditing: false)
                             .tag(demo.id)
+                    }
+                    .onMove { source, destination in
+                        store.moveDemos(from: source, to: destination)
                     }
                 }
                 .listStyle(.sidebar)
