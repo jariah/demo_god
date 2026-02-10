@@ -13,6 +13,7 @@ struct BrowserView: View {
             WebView(
                 url: URL(string: store.currentDisplayURL),
                 sessionEpoch: store.sessionEpoch,
+                isMobileView: store.isMobileView,
                 onURLChange: { newURL in
                     store.updateCurrentDisplayURL(newURL)
                 }

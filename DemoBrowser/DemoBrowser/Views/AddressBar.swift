@@ -32,6 +32,12 @@ struct AddressBar: View {
             .onAppear {
                 editingURL = store.currentDisplayURL
             }
+
+            Button(action: { store.isMobileView.toggle() }) {
+                Image(systemName: store.isMobileView ? "iphone" : "desktopcomputer")
+                    .foregroundStyle(store.isMobileView ? Color.accentColor : Color.secondary)
+            }
+            .buttonStyle(.borderless)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)

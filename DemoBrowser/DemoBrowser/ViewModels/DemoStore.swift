@@ -11,6 +11,7 @@ final class DemoStore {
     var currentDisplayURL: String = ""
     var editingDemoID: UUID?
     var showDeleteConfirmation: Bool = false
+    var isMobileView: Bool = false
 
     private let saveSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
