@@ -2,6 +2,7 @@ import SwiftUI
 
 struct NotesPanel: View {
     @Environment(DemoStore.self) private var store
+    @Environment(GlassSettings.self) private var glassSettings
 
     var body: some View {
         VStack(spacing: 0) {
@@ -10,8 +11,8 @@ struct NotesPanel: View {
                     .font(.headline)
                 Spacer()
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
 
             Divider()
 
@@ -21,15 +22,15 @@ struct NotesPanel: View {
                     set: { store.updateNotes($0) }
                 ))
                 .font(.system(.body, design: .monospaced))
+                .foregroundStyle(.primary.opacity(glassSettings.notesTextOpacity))
                 .scrollContentBackground(.hidden)
-                .padding(8)
+                .padding(12)
             } else {
-                VStack {
-                    Spacer()
-                    Text("Select a demo to view notes")
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                }
+                ContentUnavailableView(
+                    "No Demo Selected",
+                    systemImage: "doc.text",
+                    description: Text("Select a demo to view notes")
+                )
             }
         }
     }

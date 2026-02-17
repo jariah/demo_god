@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AddressBar: View {
     @Environment(DemoStore.self) private var store
+    @Environment(GlassSettings.self) private var glassSettings
     @State private var editingURL: String = ""
     @State private var isEditing: Bool = false
     @FocusState private var isFocused: Bool
@@ -32,15 +33,15 @@ struct AddressBar: View {
             .onAppear {
                 editingURL = store.currentDisplayURL
             }
-
-            Button(action: { store.isMobileView.toggle() }) {
-                Image(systemName: store.isMobileView ? "iphone" : "desktopcomputer")
-                    .foregroundStyle(store.isMobileView ? Color.accentColor : Color.secondary)
-            }
-            .buttonStyle(.borderless)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 6)
-        .background(.bar)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 8)
+        .frame(minWidth: 300, maxWidth: 600)
+        .glassEffect(
+            glassSettings.addressBarGlass,
+            in: RoundedRectangle(cornerRadius: glassSettings.addressBarCornerRadius)
+        )
+        .shadow(color: .black.opacity(0.15), radius: 8, y: 2)
+        .environment(\.colorScheme, glassSettings.addressBarForceDark ? .dark : .light)
     }
 }

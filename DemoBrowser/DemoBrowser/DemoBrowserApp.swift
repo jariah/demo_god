@@ -3,11 +3,13 @@ import SwiftUI
 @main
 struct DemoBrowserApp: App {
     @State private var store = DemoStore()
+    @State private var glassSettings = GlassSettings()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(store)
+                .environment(glassSettings)
         }
         .defaultSize(width: 1200, height: 800)
         .commands {
@@ -26,6 +28,13 @@ struct DemoBrowserApp: App {
                     store.toggleChrome()
                 }
                 .keyboardShortcut(".", modifiers: [.command, .shift])
+
+                Divider()
+
+                Button("Toggle Glass Settings") {
+                    NotificationCenter.default.post(name: NSNotification.Name("ToggleGlassSettings"), object: nil)
+                }
+                .keyboardShortcut("g", modifiers: [.command, .shift])
             }
 
             CommandGroup(replacing: .newItem) {

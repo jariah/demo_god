@@ -2,13 +2,15 @@ import SwiftUI
 
 struct DemoQueueView: View {
     @Environment(DemoStore.self) private var store
+    @Environment(GlassSettings.self) private var gs
     @State private var isEditing: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("Demo Queue")
+                Text("Demos")
                     .font(.headline)
+                    .foregroundStyle(gs.resolveColor(gs.queueHeaderColor, opacity: gs.queueHeaderOpacity))
                 Spacer()
                 Button(action: {
                     isEditing.toggle()
@@ -17,7 +19,8 @@ struct DemoQueueView: View {
                     }
                 }) {
                     Text(isEditing ? "Done" : "Edit")
-                        .font(.caption)
+                        .font(.subheadline)
+                        .foregroundStyle(gs.resolveColor(gs.queueHeaderButtonColor, opacity: gs.queueHeaderButtonOpacity))
                 }
                 .buttonStyle(.borderless)
 
@@ -25,43 +28,44 @@ struct DemoQueueView: View {
                     store.addDemo()
                 }) {
                     Image(systemName: "plus")
+                        .foregroundStyle(gs.resolveColor(gs.queueHeaderButtonColor, opacity: gs.queueHeaderButtonOpacity))
                 }
                 .buttonStyle(.borderless)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
 
             Divider()
+                .overlay(gs.resolveColor(gs.queueDividerColor, opacity: gs.queueDividerOpacity))
 
-            if isEditing {
-                List {
-                    ForEach(store.demos) { demo in
-                        DemoRowView(demo: demo, isQueueEditing: true)
-                    }
-                    .onMove { source, destination in
-                        store.moveDemos(from: source, to: destination)
+            List(selection: Binding(
+                get: { store.activeDemoID },
+                set: { newID in
+                    if let id = newID, let demo = store.demos.first(where: { $0.id == id }) {
+                        store.selectDemo(demo)
                     }
                 }
-                .listStyle(.sidebar)
-            } else {
-                List(selection: Binding(
-                    get: { store.activeDemoID },
-                    set: { newID in
-                        if let id = newID, let demo = store.demos.first(where: { $0.id == id }) {
-                            store.selectDemo(demo)
-                        }
-                    }
-                )) {
-                    ForEach(store.demos) { demo in
-                        DemoRowView(demo: demo, isQueueEditing: false)
-                            .tag(demo.id)
-                    }
-                    .onMove { source, destination in
-                        store.moveDemos(from: source, to: destination)
-                    }
+            )) {
+                ForEach(store.demos) { demo in
+                    let isSelected = store.activeDemoID == demo.id
+                    DemoRowView(demo: demo, isQueueEditing: isEditing)
+                        .tag(demo.id)
+                        .listRowBackground(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(isSelected
+                                    ? gs.resolveColor(gs.queueRowSelectedBgColor, opacity: gs.queueRowSelectedBgOpacity)
+                                    : gs.resolveColor(gs.queueRowNormalBgColor, opacity: gs.queueRowNormalBgOpacity))
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 1)
+                        )
+                        .listRowSeparator(.hidden)
                 }
-                .listStyle(.sidebar)
+                .onMove { source, destination in
+                    store.moveDemos(from: source, to: destination)
+                }
             }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
         }
     }
 }

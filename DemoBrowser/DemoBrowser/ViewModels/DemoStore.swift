@@ -1,4 +1,5 @@
 import Foundation
+import Observation
 import Combine
 
 @Observable
@@ -11,7 +12,10 @@ final class DemoStore {
     var currentDisplayURL: String = ""
     var editingDemoID: UUID?
     var showDeleteConfirmation: Bool = false
-    var isMobileView: Bool = false
+
+    var activeDemoIsMobileView: Bool {
+        activeDemo?.isMobileView ?? false
+    }
 
     private let saveSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -157,6 +161,12 @@ final class DemoStore {
 
     func moveDemos(from source: IndexSet, to destination: Int) {
         demos.move(fromOffsets: source, toOffset: destination)
+        scheduleAutoSave()
+    }
+
+    func toggleMobileView(for id: UUID) {
+        guard let idx = demos.firstIndex(where: { $0.id == id }) else { return }
+        demos[idx].isMobileView.toggle()
         scheduleAutoSave()
     }
 

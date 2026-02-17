@@ -6,13 +6,15 @@ struct Demo: Identifiable, Codable, Equatable {
     var url: String
     var notes: String
     var createdAt: Date
+    var isMobileView: Bool
 
-    init(id: UUID = UUID(), name: String, url: String, notes: String = "", createdAt: Date = Date()) {
+    init(id: UUID = UUID(), name: String, url: String, notes: String = "", createdAt: Date = Date(), isMobileView: Bool = false) {
         self.id = id
         self.name = name
         self.url = url
         self.notes = notes
         self.createdAt = createdAt
+        self.isMobileView = isMobileView
     }
 }
 
