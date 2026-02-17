@@ -7,24 +7,17 @@ struct ContentView: View {
 
     var body: some View {
         BrowserView()
-            .overlay(alignment: .top) {
-                if store.isChromeVisible {
-                    AddressBar()
-                        .padding(.top, 12)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                }
-            }
             .overlay(alignment: .topLeading) {
                 if store.isChromeVisible {
                     DemoQueueView()
-                        .frame(width: 260)
+                        .frame(width: 346)
                         .glassEffect(
                             glassSettings.queueGlass,
                             in: RoundedRectangle(cornerRadius: glassSettings.queueCornerRadius)
                         )
                         .shadow(color: .black.opacity(0.3), radius: 16, y: 4)
-                        .padding(.top, 56)
-                        .padding(.leading, 12)
+                        .padding(.top, 10)
+                        .padding(.leading, 9)
                         .padding(.bottom, 12)
                         .transition(.move(edge: .leading).combined(with: .opacity))
                         .environment(\.colorScheme, glassSettings.queueForceDark ? .dark : .light)
@@ -39,7 +32,7 @@ struct ContentView: View {
                             in: RoundedRectangle(cornerRadius: glassSettings.notesCornerRadius)
                         )
                         .shadow(color: .black.opacity(0.3), radius: 16, y: 4)
-                        .padding(.top, 56)
+                        .padding(.top, 10)
                         .padding(.trailing, 12)
                         .padding(.bottom, 12)
                         .transition(.move(edge: .trailing).combined(with: .opacity))

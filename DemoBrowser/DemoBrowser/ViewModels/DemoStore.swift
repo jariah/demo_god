@@ -130,7 +130,11 @@ final class DemoStore {
             normalized = "https://\(normalized)"
         }
         currentDisplayURL = normalized
+        if let id = activeDemoID, let idx = demos.firstIndex(where: { $0.id == id }) {
+            demos[idx].url = normalized
+        }
         sessionEpoch += 1
+        scheduleAutoSave()
     }
 
     func updateDemoName(_ id: UUID, name: String) {
