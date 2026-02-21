@@ -7,6 +7,7 @@ final class DemoStore {
     var demos: [Demo] = []
     var activeDemoID: UUID?
     var isNotesPanelVisible: Bool = false
+    var isQueueVisible: Bool = true
     var isChromeVisible: Bool = true
     var sessionEpoch: Int = 0
     var currentDisplayURL: String = ""
@@ -172,6 +173,10 @@ final class DemoStore {
         guard let idx = demos.firstIndex(where: { $0.id == id }) else { return }
         demos[idx].isMobileView.toggle()
         scheduleAutoSave()
+    }
+
+    func toggleQueue() {
+        isQueueVisible.toggle()
     }
 
     func toggleChrome() {

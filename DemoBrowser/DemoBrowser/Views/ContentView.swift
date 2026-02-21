@@ -7,8 +7,13 @@ struct ContentView: View {
 
     var body: some View {
         BrowserView()
+            .onTapGesture {
+                if store.isQueueVisible {
+                    store.isQueueVisible = false
+                }
+            }
             .overlay(alignment: .topLeading) {
-                if store.isChromeVisible {
+                if store.isChromeVisible && store.isQueueVisible {
                     DemoQueueView()
                         .frame(width: 346)
                         .glassEffect(
@@ -24,7 +29,7 @@ struct ContentView: View {
                 }
             }
             .overlay(alignment: .topTrailing) {
-                if store.isChromeVisible && store.isNotesPanelVisible {
+                if store.isNotesPanelVisible {
                     NotesPanel()
                         .frame(width: 300)
                         .glassEffect(
@@ -50,6 +55,7 @@ struct ContentView: View {
                 }
             }
             .animation(.spring(duration: 0.3), value: store.isChromeVisible)
+            .animation(.spring(duration: 0.3), value: store.isQueueVisible)
             .animation(.spring(duration: 0.3), value: store.isNotesPanelVisible)
             .animation(.spring(duration: 0.3), value: showGlassSettings)
             .frame(minWidth: 800, minHeight: 500)
