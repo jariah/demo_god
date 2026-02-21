@@ -5,19 +5,19 @@ struct PersistenceService {
 
     private static var directoryURL: URL {
         FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("DemoBrowser", isDirectory: true)
+            .appendingPathComponent("DemoGod", isDirectory: true)
     }
 
     private static var fileURL: URL {
         directoryURL.appendingPathComponent(fileName)
     }
 
-    static func load() -> DemoBrowserDocument? {
+    static func load() -> DemoGodDocument? {
         let url = fileURL
         guard FileManager.default.fileExists(atPath: url.path) else { return nil }
         do {
             let data = try Data(contentsOf: url)
-            let doc = try JSONDecoder().decode(DemoBrowserDocument.self, from: data)
+            let doc = try JSONDecoder().decode(DemoGodDocument.self, from: data)
             return doc
         } catch {
             print("[PersistenceService] Failed to load: \(error)")
@@ -25,7 +25,7 @@ struct PersistenceService {
         }
     }
 
-    static func save(_ document: DemoBrowserDocument) {
+    static func save(_ document: DemoGodDocument) {
         do {
             let dir = directoryURL
             if !FileManager.default.fileExists(atPath: dir.path) {
