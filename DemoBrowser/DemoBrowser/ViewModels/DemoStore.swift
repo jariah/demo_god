@@ -180,6 +180,14 @@ final class DemoStore {
     }
 
     func toggleChrome() {
+        // If chrome is visible but queue was dismissed, restore queue instead of hiding everything
+        if isChromeVisible && !isQueueVisible {
+            isQueueVisible = true
+            return
+        }
         isChromeVisible.toggle()
+        if isChromeVisible {
+            isQueueVisible = true
+        }
     }
 }
