@@ -7,31 +7,29 @@ struct ContentView: View {
 
     var body: some View {
         BrowserView()
-            .overlay(alignment: .top) {
-                if store.isChromeVisible {
-                    AddressBar()
-                        .padding(.top, 12)
-                        .transition(.move(edge: .top).combined(with: .opacity))
+            .onTapGesture {
+                if store.isQueueVisible {
+                    store.isQueueVisible = false
                 }
             }
             .overlay(alignment: .topLeading) {
-                if store.isChromeVisible {
+                if store.isChromeVisible && store.isQueueVisible {
                     DemoQueueView()
-                        .frame(width: 260)
+                        .frame(width: 346)
                         .glassEffect(
                             glassSettings.queueGlass,
                             in: RoundedRectangle(cornerRadius: glassSettings.queueCornerRadius)
                         )
                         .shadow(color: .black.opacity(0.3), radius: 16, y: 4)
-                        .padding(.top, 56)
-                        .padding(.leading, 12)
+                        .padding(.top, 10)
+                        .padding(.leading, 9)
                         .padding(.bottom, 12)
                         .transition(.move(edge: .leading).combined(with: .opacity))
                         .environment(\.colorScheme, glassSettings.queueForceDark ? .dark : .light)
                 }
             }
             .overlay(alignment: .topTrailing) {
-                if store.isChromeVisible && store.isNotesPanelVisible {
+                if store.isNotesPanelVisible {
                     NotesPanel()
                         .frame(width: 300)
                         .glassEffect(
@@ -39,7 +37,7 @@ struct ContentView: View {
                             in: RoundedRectangle(cornerRadius: glassSettings.notesCornerRadius)
                         )
                         .shadow(color: .black.opacity(0.3), radius: 16, y: 4)
-                        .padding(.top, 56)
+                        .padding(.top, 10)
                         .padding(.trailing, 12)
                         .padding(.bottom, 12)
                         .transition(.move(edge: .trailing).combined(with: .opacity))
@@ -57,6 +55,7 @@ struct ContentView: View {
                 }
             }
             .animation(.spring(duration: 0.3), value: store.isChromeVisible)
+            .animation(.spring(duration: 0.3), value: store.isQueueVisible)
             .animation(.spring(duration: 0.3), value: store.isNotesPanelVisible)
             .animation(.spring(duration: 0.3), value: showGlassSettings)
             .frame(minWidth: 800, minHeight: 500)

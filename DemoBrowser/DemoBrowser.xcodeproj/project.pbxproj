@@ -15,13 +15,13 @@
 		A10006 /* DemoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006; };
 		A10007 /* BrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10007; };
 		A10008 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008; };
-		A10009 /* AddressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10009; };
 		A10010 /* NotesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10010; };
 		A10011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10011; };
 		A10012 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10013; };
 		A10014 /* VisualEffectBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10014; };
 		A10015 /* GlassSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
 		A10016 /* GlassSettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10016; };
+		A10017 /* AbhayaLibre-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B10017; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,6 @@
 		B10006 /* DemoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoRowView.swift; sourceTree = "<group>"; };
 		B10007 /* BrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserView.swift; sourceTree = "<group>"; };
 		B10008 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		B10009 /* AddressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBar.swift; sourceTree = "<group>"; };
 		B10010 /* NotesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesPanel.swift; sourceTree = "<group>"; };
 		B10011 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B10012 /* DemoBrowser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoBrowser.entitlements; sourceTree = "<group>"; };
@@ -41,6 +40,7 @@
 		B10014 /* VisualEffectBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBackground.swift; sourceTree = "<group>"; };
 		B10015 /* GlassSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassSettings.swift; sourceTree = "<group>"; };
 		B10016 /* GlassSettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassSettingsPanel.swift; sourceTree = "<group>"; };
+		B10017 /* AbhayaLibre-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AbhayaLibre-Bold.ttf"; sourceTree = "<group>"; };
 		B10020 /* DemoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -74,6 +74,7 @@
 				D10005 /* Services */,
 				D10006 /* Views */,
 				D10007 /* Utilities */,
+				D10008 /* Fonts */,
 			);
 			path = DemoBrowser;
 			sourceTree = "<group>";
@@ -111,7 +112,6 @@
 				B10006 /* DemoRowView.swift */,
 				B10007 /* BrowserView.swift */,
 				B10008 /* WebView.swift */,
-				B10009 /* AddressBar.swift */,
 				B10010 /* NotesPanel.swift */,
 				B10016 /* GlassSettingsPanel.swift */,
 			);
@@ -124,6 +124,14 @@
 				B10014 /* VisualEffectBackground.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D10008 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B10017 /* AbhayaLibre-Bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		D10010 /* Products */ = {
@@ -193,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10011 /* Assets.xcassets in Resources */,
+				A10017 /* AbhayaLibre-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +220,6 @@
 				A10006 /* DemoRowView.swift in Sources */,
 				A10007 /* BrowserView.swift in Sources */,
 				A10008 /* WebView.swift in Sources */,
-				A10009 /* AddressBar.swift in Sources */,
 				A10010 /* NotesPanel.swift in Sources */,
 				A10012 /* PersistenceService.swift in Sources */,
 				A10014 /* VisualEffectBackground.swift in Sources */,
@@ -351,6 +359,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ATSApplicationFontsPath = Fonts;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -378,6 +387,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_ATSApplicationFontsPath = Fonts;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

@@ -3,69 +3,46 @@ import SwiftUI
 struct DemoQueueView: View {
     @Environment(DemoStore.self) private var store
     @Environment(GlassSettings.self) private var gs
-    @State private var isEditing: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("Demos")
-                    .font(.headline)
-                    .foregroundStyle(gs.resolveColor(gs.queueHeaderColor, opacity: gs.queueHeaderOpacity))
+                Image("DemoGodHeader")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 42)
+
                 Spacer()
-                Button(action: {
-                    isEditing.toggle()
-                    if !isEditing {
-                        store.editingDemoID = nil
-                    }
-                }) {
-                    Text(isEditing ? "Done" : "Edit")
-                        .font(.subheadline)
-                        .foregroundStyle(gs.resolveColor(gs.queueHeaderButtonColor, opacity: gs.queueHeaderButtonOpacity))
-                }
-                .buttonStyle(.borderless)
 
                 Button(action: {
                     store.addDemo()
                 }) {
-                    Image(systemName: "plus")
-                        .foregroundStyle(gs.resolveColor(gs.queueHeaderButtonColor, opacity: gs.queueHeaderButtonOpacity))
+                    Text("+")
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundStyle(.primary)
+                        .frame(width: 42, height: 42)
+                        .background(Color(nsColor: .tertiarySystemFill), in: RoundedRectangle(cornerRadius: 10))
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.plain)
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
 
-            Divider()
-                .overlay(gs.resolveColor(gs.queueDividerColor, opacity: gs.queueDividerOpacity))
-
-            List(selection: Binding(
-                get: { store.activeDemoID },
-                set: { newID in
-                    if let id = newID, let demo = store.demos.first(where: { $0.id == id }) {
-                        store.selectDemo(demo)
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 0) {
+                    ForEach(store.demos) { demo in
+                        DemoRowView(demo: demo)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 10)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                if store.activeDemoID != demo.id {
+                                    store.selectDemo(demo)
+                                }
+                            }
                     }
                 }
-            )) {
-                ForEach(store.demos) { demo in
-                    let isSelected = store.activeDemoID == demo.id
-                    DemoRowView(demo: demo, isQueueEditing: isEditing)
-                        .tag(demo.id)
-                        .listRowBackground(
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(isSelected
-                                    ? gs.resolveColor(gs.queueRowSelectedBgColor, opacity: gs.queueRowSelectedBgOpacity)
-                                    : gs.resolveColor(gs.queueRowNormalBgColor, opacity: gs.queueRowNormalBgOpacity))
-                                .padding(.horizontal, 4)
-                                .padding(.vertical, 1)
-                        )
-                        .listRowSeparator(.hidden)
-                }
-                .onMove { source, destination in
-                    store.moveDemos(from: source, to: destination)
-                }
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
         }
     }
 }

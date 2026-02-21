@@ -52,7 +52,7 @@ final class GlassSettings {
     var queueTint: TintPreset = .none
     var queueTintIntensity: Double = 0.5
     var queueCornerRadius: Double = 12
-    var queueForceDark: Bool = true
+    var queueForceDark: Bool = false
 
     // Queue Panel - Header
     var queueHeaderColor: TintPreset = .white
@@ -83,7 +83,7 @@ final class GlassSettings {
     var notesTint: TintPreset = .none
     var notesTintIntensity: Double = 0.5
     var notesCornerRadius: Double = 12
-    var notesForceDark: Bool = true
+    var notesForceDark: Bool = false
     var notesTextOpacity: Double = 0.85
 
     // Compose Glass values

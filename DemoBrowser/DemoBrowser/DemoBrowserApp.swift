@@ -14,6 +14,11 @@ struct DemoBrowserApp: App {
         .defaultSize(width: 1200, height: 800)
         .commands {
             CommandGroup(after: .sidebar) {
+                Button("Toggle Queue") {
+                    store.toggleQueue()
+                }
+                .keyboardShortcut("q", modifiers: [.command, .shift])
+
                 Button("Toggle Notes") {
                     store.toggleNotesPanel()
                 }
