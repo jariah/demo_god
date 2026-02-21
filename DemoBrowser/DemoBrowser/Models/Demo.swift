@@ -18,7 +18,7 @@ struct Demo: Identifiable, Codable, Equatable {
     }
 }
 
-struct DemoBrowserDocument: Codable {
+struct DemoGodDocument: Codable {
     var demos: [Demo]
     var activeDemoID: UUID?
     var isNotesPanelVisible: Bool

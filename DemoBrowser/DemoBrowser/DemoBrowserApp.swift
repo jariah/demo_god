@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct DemoBrowserApp: App {
+struct DemoGodApp: App {
     @State private var store = DemoStore()
     @State private var glassSettings = GlassSettings()
 

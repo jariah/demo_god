@@ -58,7 +58,7 @@ final class DemoStore {
     }
 
     private func saveToDisk() {
-        let doc = DemoBrowserDocument(
+        let doc = DemoGodDocument(
             demos: demos,
             activeDemoID: activeDemoID,
             isNotesPanelVisible: isNotesPanelVisible
