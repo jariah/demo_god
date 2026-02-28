@@ -6,34 +6,43 @@ struct DemoQueueView: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            // Fixed header — does not scroll
             HStack {
-                Image("DemoGodHeader")
+                Image(nsImage: NSApp.applicationIconImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(height: 42)
+                    .frame(width: 28, height: 28)
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+
+                Text("DEMOGOD")
+                    .font(.system(size: 14, weight: .bold))
+                    .tracking(3)
+                    .foregroundStyle(.white)
 
                 Spacer()
 
                 Button(action: {
                     store.addDemo()
                 }) {
-                    Text("+")
-                        .font(.system(size: 28, weight: .bold))
-                        .foregroundStyle(.primary)
-                        .frame(width: 42, height: 42)
-                        .background(Color(nsColor: .tertiarySystemFill), in: RoundedRectangle(cornerRadius: 10))
+                    Image(systemName: "plus")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .frame(width: 28, height: 28)
                 }
                 .buttonStyle(.plain)
             }
-            .padding(.horizontal, 14)
+            .padding(.horizontal, 12)
             .padding(.vertical, 10)
+
+            Rectangle()
+                .fill(.white.opacity(0.08))
+                .frame(height: 1)
 
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(store.demos) { demo in
                         DemoRowView(demo: demo)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal, 10)
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 if store.activeDemoID != demo.id {
@@ -42,6 +51,7 @@ struct DemoQueueView: View {
                             }
                     }
                 }
+                .padding(.vertical, 4)
             }
         }
     }
