@@ -4,22 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DemoGod — Demo Browser for macOS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="hero">
-    <h1>DemoGod</h1>
-    <p class="tagline">A beautiful demo browser for macOS. Manage, present, and switch between web demos with a liquid glass UI.</p>
-    <a class="download-btn" href="https://github.com/jariah/demo_god/releases/latest/download/DemoGod.dmg">
-      Download for macOS
-      <span>Requires macOS 15+</span>
-    </a>
-    <p class="note">
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="icon.png" alt="DemoGod" class="icon" />
+      <h1 id="title">DEMOGOD</h1>
+      <p class="subtitle">built for believers</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <a class="download-btn" href="https://github.com/jariah/demo_god/releases/latest/download/DemoGod.dmg">
+        Download for Mac
+      </a>
+      <p class="platform-note">macOS only</p>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <p>No cache, cookies, or chrome</p>
+      <p>Web / mobile toggle</p>
+      <p>Saved notes for every demo</p>
+    </div>
+
+    <!-- First launch note -->
+    <p class="first-launch-note">
       First launch: right-click the app, select <code>Open</code>, then click <code>Open</code> in the dialog.
     </p>
   </div>
+
   <footer>
     <a href="https://github.com/jariah/demo_god">GitHub</a>
   </footer>
+
+  <script>
+    const title = document.getElementById('title');
+    function triggerGlitch() {
+      title.classList.add('glitch');
+      setTimeout(() => title.classList.remove('glitch'), 150);
+    }
+    setInterval(() => {
+      if (Math.random() > 0.7) triggerGlitch();
+    }, 2000);
+  </script>
 </body>
 </html>
