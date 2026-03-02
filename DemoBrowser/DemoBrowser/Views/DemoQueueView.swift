@@ -53,6 +53,12 @@ struct DemoQueueView: View {
                 }
                 .padding(.vertical, 4)
             }
+
+            Text("\u{2318}\u{21E7}. to dismiss")
+                .font(.system(size: 11, weight: .medium))
+                .foregroundStyle(.white.opacity(0.3))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
         }
     }
 }
