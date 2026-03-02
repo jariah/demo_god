@@ -51,6 +51,15 @@ struct NotesPanel: View {
                 }
                 .frame(maxWidth: .infinity)
             }
+
+            HStack {
+                Spacer()
+                Text("\u{2318}; to dismiss")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(.white.opacity(0.3))
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 6)
         }
         .onHover { hovering in
             isPanelHovered = hovering
