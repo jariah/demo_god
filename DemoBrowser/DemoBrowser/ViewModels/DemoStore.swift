@@ -71,12 +71,15 @@ final class DemoStore {
     }
 
     private func loadSampleData() {
-        let sample1 = Demo(name: "Apple", url: "https://www.apple.com")
-        let sample2 = Demo(name: "GitHub", url: "https://github.com")
-        let sample3 = Demo(name: "Wikipedia", url: "https://en.wikipedia.org")
-        demos = [sample1, sample2, sample3]
-        activeDemoID = sample1.id
-        currentDisplayURL = sample1.url
+        let sample = Demo(
+            name: "Add your first demo",
+            url: "https://jariah.github.io/demo_god/",
+            notes: "Add your demo data or talk track here"
+        )
+        demos = [sample]
+        activeDemoID = sample.id
+        currentDisplayURL = sample.url
+        isNotesPanelVisible = true
         scheduleAutoSave()
     }
 
