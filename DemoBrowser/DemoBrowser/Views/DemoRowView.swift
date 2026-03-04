@@ -129,6 +129,14 @@ struct DemoRowView: View {
             HStack(spacing: 10) {
                 expandedViewModeIcons
                 Spacer()
+                Button {
+                    store.deleteActiveDemo()
+                } label: {
+                    Image(systemName: "trash")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(.white.opacity(0.4))
+                }
+                .buttonStyle(.plain)
             }
             .padding(.top, 2)
         }
