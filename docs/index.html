@@ -70,6 +70,14 @@
     <a href="https://github.com/jariah/demo_god">GitHub</a>
   </footer>
 
+  <!-- iOS easter egg -->
+  <div id="ios-popup" class="ios-popup" hidden>
+    <div class="ios-popup-box">
+      <p>Does this look like a Mac to you?<br>Come back with a bigger screen.</p>
+      <button onclick="document.getElementById('ios-popup').hidden=true">Fine.</button>
+    </div>
+  </div>
+
   <script>
     const title = document.getElementById('title');
     function triggerGlitch() {
@@ -79,6 +87,13 @@
     setInterval(() => {
       if (Math.random() > 0.7) triggerGlitch();
     }, 2000);
+
+    document.querySelector('.download-btn').addEventListener('click', function(e) {
+      if (/iPhone|iPad|iPod|Android/.test(navigator.userAgent)) {
+        e.preventDefault();
+        document.getElementById('ios-popup').hidden = false;
+      }
+    });
   </script>
 </body>
 </html>
