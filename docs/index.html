@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DemoGod — Demo Browser for macOS</title>
+  <meta name="description" content="DemoGod is a minimal macOS browser built for sales demos. No cache, cookies, or chrome — just your product.">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jariah.github.io/demo_god/">
+  <meta property="og:title" content="DemoGod — Demo Browser for macOS">
+  <meta property="og:description" content="A minimal macOS browser built for sales demos. No cache, cookies, or chrome — just your product.">
+  <meta property="og:image" content="https://jariah.github.io/demo_god/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DemoGod — Demo Browser for macOS">
+  <meta name="twitter:description" content="A minimal macOS browser built for sales demos. No cache, cookies, or chrome — just your product.">
+  <meta name="twitter:image" content="https://jariah.github.io/demo_god/og-image.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://jariah.github.io/demo_god/">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="icon.png" alt="DemoGod" class="icon" />
+      <h1 id="title">DEMOGOD</h1>
+      <p class="subtitle">built for believers</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <a class="download-btn" href="https://github.com/jariah/demo_god/releases/latest/download/DemoGod.dmg">
+        Download for Mac
+      </a>
+      <p class="platform-note">macOS only</p>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <p>No cache, cookies, or chrome</p>
+      <p>Web / mobile toggle</p>
+      <p>Saved notes for every demo</p>
+    </div>
+
+    <!-- First launch note -->
+    <p class="first-launch-note">
+      First launch: right-click the app, select <code>Open</code>, then click <code>Open</code> in the dialog.
+    </p>
+  </div>
+
+  <footer>
+    <a href="https://github.com/jariah/demo_god">GitHub</a>
+  </footer>
+
+  <script>
+    const title = document.getElementById('title');
+    function triggerGlitch() {
+      title.classList.add('glitch');
+      setTimeout(() => title.classList.remove('glitch'), 150);
+    }
+    setInterval(() => {
+      if (Math.random() > 0.7) triggerGlitch();
+    }, 2000);
+  </script>
+</body>
+</html>
